@@ -29,7 +29,7 @@ export default function Skills() {
     {
       title: "Full Stack Developer",
       company: "iTUX",
-      period: "June 2025 - Present",
+      period: "June 2025 - Sep 2025",
       location: "Remote",
       description: "Leading development of scalable web applications using React,Tailwind CSS,Express,MongoDB,Node.js,Next.js",
     },
