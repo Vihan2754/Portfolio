@@ -29,7 +29,7 @@ export default function Hero() {
     }
   }
 
-  const resumeLink = "https://drive.google.com/file/d/1GhB55I62VoBJtIJ1F9kXerubhqroAgFJ/view?usp=drive_link"
+  const resumeLink = "https://drive.google.com/file/d/1xeGPFSLijOKc8IujHfp1acFxfWuFzWY0/view?usp=drive_link"
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
