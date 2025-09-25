@@ -10,16 +10,25 @@ const projects = [
     description:
       "ElevateAI is a full-stack career growth platform offering AI-powered interview prep, resume optimization, and real-time career insights. It delivers role-specific practice, ATS-friendly resumes, and labor market analytics across 50+ industries, boosting candidate success rates.",
     image: "/ElevateAI.png",
-    github: "",
-    live: "https://elevate-ai-sigma.vercel.app/",
+    github: "https://github.com/Vihan2754/Elevate-AI",
+    live: "https://elevate-ai-etjv.vercel.app/",
     tech: [" React","Tailwind CSS","Next.js", "Neondb", "Shadcn UI", "Prisma", "Gemini API"],
+  },
+  {
+    title: " Virtual AI Assistant",
+    description:
+      "Built a full-stack Jarvis-style AI Virtual Assistant using the MERN stack and Render, enabling real-time voice interaction. Integrated Gemini AI for context-aware conversations, enhancing engagement and responsivenes",
+    image: "/Ai_Assisatant.png",
+    github: "https://github.com/Vihan2754/Virtual-AI-Assistant",
+    live: "https://virtual-ai-assistant-y37a.onrender.com/",
+    tech: ["React", "Nextjs", "Neondb", "Shadcn UI", "Prisma", "Gemini API"],
   },
   {
     title: "BiteZY",
     description:
       "BiteZY is a full-stack fast-food ordering web application designed for seamless navigation and a clean user experience. It features responsive UI components, client-side routing, and reusable React components, ensuring 100% mobile compatibility and improved maintainability.",
     image: "/BiteZY.png",
-    github: "#",
+    github: "https://github.com/Vihan2754/BiteZY",
     live: "https://bite-zy.vercel.app/",
     tech: ["Html", "Css", "Javascript"],
   },
@@ -28,7 +37,7 @@ const projects = [
     description:
       "Animated Golf Website is a responsive, mobile-first platform featuring smooth animations and interactive UI elements that enhanced accessibility for 1,000+ users. By optimizing navigation, performance, and front-end interactions, it reduced page load time by 30% and improved user engagement.",
     image: "/Golf.png",
-    github: "#",
+    github: "https://github.com/Vihan2754/Golf-Animated-Website",
     live: "https://vihan2754.github.io/Golf-Animated-Website/",
     tech: ["Html", "Css", "Javascript"],
   },
@@ -37,8 +46,8 @@ const projects = [
     description:
       "SkySense is a responsive weather app built with React.js and Material UI, providing real-time forecasts for 200,000+ cities via the OpenWeatherMap API. It ensures seamless cross-device performance and efficient state management with React Hooks.",
     image: "/Skysense.png",
-    github: "#",
-    live: "https://vihan2754.github.io/Golf-Animated-Website/",
+    github: "https://github.com/Vihan2754/SkySense",
+    live: "https://sky-sense-lyart.vercel.app/",
     tech: ["Html", "CSS", "Javascript","React","Material UI"],
   },
 ]
