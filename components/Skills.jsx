@@ -4,8 +4,8 @@ import { motion } from "framer-motion"
 import { Calendar, MapPin } from "lucide-react"
 import Image from "next/image"
 
-// Create a motion-enabled Image component
-const MotionImage = motion(Image)
+// Create a motion-enabled Image component (motion() deprecated)
+const MotionImage = motion.create(Image)
 
 export default function Skills() {
   const skills = [

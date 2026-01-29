@@ -4,7 +4,7 @@ const nextConfig = {
     localPatterns: [
       {
         pathname: '/**',
-        search: '**',
+        // Allow any query string for local images by omitting `search`
       },
     ],
   },
