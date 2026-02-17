@@ -2,6 +2,16 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+## Environment Variables
+
+This portfolio includes an AI chatbot that calls Gemini from a server route.
+
+- Create `.env.local` and set:
+	- `GEMINI_API_KEY` (required)
+	- `GEMINI_MODEL` (optional)
+
+You can copy from `.env.example`.
+
 First, run the development server:
 
 ```bash

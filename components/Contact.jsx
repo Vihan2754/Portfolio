@@ -214,6 +214,7 @@ const Contact = () => {
                     type="text"
                     id="name"
                     name="name"
+                    data-ai="contact-name"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -230,6 +231,7 @@ const Contact = () => {
                     type="email"
                     id="email"
                     name="email"
+                    data-ai="contact-email"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -248,6 +250,7 @@ const Contact = () => {
                   type="text"
                   id="subject"
                   name="subject"
+                  data-ai="contact-subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
@@ -264,6 +267,7 @@ const Contact = () => {
                 <textarea
                   id="message"
                   name="message"
+                  data-ai="contact-message"
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -277,6 +281,7 @@ const Contact = () => {
               <motion.button
                 type="button"
                 onClick={handleSubmit}
+                data-ai="contact-submit"
                 disabled={isLoading || !formData.name || !formData.email || !formData.subject || !formData.message}
                 whileHover={!isLoading ? { scale: 1.05 } : {}}
                 whileTap={!isLoading ? { scale: 0.95 } : {}}

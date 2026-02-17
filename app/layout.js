@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
+import Chatbot from "../components/Chatbot"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning={true}>
         {children}
+        <Chatbot />
       </body>
     </html>
   )

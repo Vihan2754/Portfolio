@@ -88,6 +88,8 @@ export default function Projects() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1, ease: "easeInOut" }}
               whileHover={{ y: -15, scale: 1.03, rotateZ: 3 }}
+              data-ai="project-card"
+              data-ai-index={index}
               className="group relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-black border border-gray-800"
             >
               {/* Project Image */}
@@ -103,7 +105,11 @@ export default function Projects() {
 
               {/* Project Content */}
               <div className="p-6 relative z-10">
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-purple-400 transition-colors">
+                <h3
+                  data-ai="project-title"
+                  data-ai-index={index}
+                  className="text-2xl font-bold mb-2 group-hover:text-purple-400 transition-colors"
+                >
                   {project.title}
                 </h3>
                 <p className="text-gray-400 mb-4">{project.description}</p>
@@ -134,6 +140,8 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    data-ai="project-github"
+                    data-ai-index={index}
                     className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors"
                   >
                     <Github className="w-5 h-5" /> Code
@@ -144,6 +152,8 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    data-ai="project-live"
+                    data-ai-index={index}
                     className="flex items-center gap-2 bg-purple-600 hover:bg-purple-500 px-4 py-2 rounded-lg transition-colors"
                   >
                     <ExternalLink className="w-5 h-5" /> Live
