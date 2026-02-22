@@ -146,7 +146,7 @@ function highlightElement({ selector }) {
 
   el.scrollIntoView({ behavior: "smooth", block: "center" })
   el.classList.add("ai-highlight")
-  window.setTimeout(() => el.classList.remove("ai-highlight"), 1800)
+  window.setTimeout(() => el.classList.remove("ai-highlight"), 3500)
 
   return "Highlighted."
 }
@@ -165,6 +165,27 @@ function clickElement({ selector }) {
   return "Clicked."
 }
 
+function setNativeFormValue(el, nextValue) {
+  const tag = el?.tagName?.toLowerCase?.()
+  const value = String(nextValue ?? "")
+
+  if (tag === "input") {
+    const descriptor = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")
+    descriptor?.set?.call(el, value)
+    return
+  }
+
+  if (tag === "textarea") {
+    const descriptor = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value")
+    descriptor?.set?.call(el, value)
+    return
+  }
+
+  if (tag === "select") {
+    el.value = value
+  }
+}
+
 function fillInput({ selector, value }) {
   const el = safeQuerySelector(selector)
   if (!el) return `Couldn't find input for selector: ${selector}`
@@ -176,7 +197,13 @@ function fillInput({ selector, value }) {
     return `That selector doesn't point to an input: ${selector}`
   }
 
-  el.value = String(value ?? "")
+  try {
+    el.focus?.()
+  } catch {
+    // ignore
+  }
+
+  setNativeFormValue(el, value)
   dispatchInputEvents(el)
   return "Filled."
 }
@@ -204,6 +231,23 @@ export default function Chatbot() {
 
   const listRef = useRef(null)
   const typingTimerRef = useRef(null)
+  const shouldAutoScrollRef = useRef(true)
+
+  function scrollToBottom(behavior = "auto") {
+    const el = listRef.current
+    if (!el) return
+
+    // Wait for layout to settle (useful for fast typing updates).
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        try {
+          el.scrollTo({ top: el.scrollHeight, behavior })
+        } catch {
+          el.scrollTop = el.scrollHeight
+        }
+      })
+    })
+  }
 
   const historyForApi = useMemo(() => {
     // Convert local UI messages to API history (user/assistant only).
@@ -215,15 +259,32 @@ export default function Chatbot() {
 
   useEffect(() => {
     if (!open) return
-    // scroll to bottom when opened
-    window.setTimeout(() => {
-      listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" })
-    }, 0)
+    // When opening, snap to bottom and re-enable auto-scroll.
+    shouldAutoScrollRef.current = true
+    scrollToBottom("smooth")
   }, [open])
 
   useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" })
-  }, [messages])
+    if (!open) return
+    if (!shouldAutoScrollRef.current) return
+    scrollToBottom("auto")
+  }, [messages, open])
+
+  useEffect(() => {
+    if (!open) return
+    const el = listRef.current
+    if (!el) return
+
+    const thresholdPx = 64
+    const onScroll = () => {
+      const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight
+      shouldAutoScrollRef.current = distanceFromBottom < thresholdPx
+    }
+
+    onScroll()
+    el.addEventListener("scroll", onScroll, { passive: true })
+    return () => el.removeEventListener("scroll", onScroll)
+  }, [open])
 
   useEffect(() => {
     return () => {
@@ -258,6 +319,9 @@ export default function Chatbot() {
   async function sendMessage() {
     const text = input.trim()
     if (!text || busy) return
+
+    // If the user is sending a message, we want to follow the conversation.
+    shouldAutoScrollRef.current = true
 
     setMessages((prev) => [
       ...prev,
@@ -334,7 +398,17 @@ export default function Chatbot() {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-[92vw] max-w-sm overflow-hidden rounded-2xl border border-gray-700 bg-gray-900/95 text-white shadow-2xl backdrop-blur">
+        <>
+          {/* Transparent backdrop to capture outside clicks so underlying handlers don't close the panel */}
+          <div
+            onMouseDown={(e) => {
+              e.stopPropagation()
+              setOpen(false)
+            }}
+            className="fixed inset-0 z-40 bg-transparent"
+          />
+
+          <div className="fixed bottom-24 right-6 z-50 flex h-[480px] max-h-[calc(100vh-140px)] w-[86vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-700 bg-gray-900/80 text-white shadow-2xl backdrop-blur">
           <div className="flex items-center justify-between border-b border-gray-700 px-4 py-3">
             <div>
               <p className="font-semibold leading-5">Portfolio Assistant</p>
@@ -350,7 +424,7 @@ export default function Chatbot() {
             </button>
           </div>
 
-          <div ref={listRef} className="ai-chat-scroll max-h-[420px] overflow-y-auto px-4 py-3">
+          <div ref={listRef} className="ai-chat-scroll flex-1 overflow-y-auto px-4 py-3">
             <div className="space-y-3">
               {messages.map((m, idx) => (
                 <div
@@ -395,8 +469,9 @@ export default function Chatbot() {
               </button>
             </div>
           </div>
-        </div>
-      )}
+          </div>
+        </>
+        )}
     </>
   )
 }
