@@ -122,10 +122,20 @@ function navigateToSection({ sectionId, sectionName }) {
   const targetId = String(sectionId || sectionName || "").trim()
   if (!targetId) return "Which section should I open?"
 
+  // Try exact id first (fast path)
   const direct = document.getElementById(targetId)
   if (direct) {
     direct.scrollIntoView({ behavior: "smooth", block: "start" })
     return `Navigated to ${targetId}.`
+  }
+
+  // Case-insensitive id match (treat 'github' and 'Github' the same)
+  const loweredTarget = targetId.toLowerCase()
+  const sectionsById = Array.from(document.querySelectorAll("section[id]"))
+  const idMatch = sectionsById.find((s) => String(s.id || "").toLowerCase() === loweredTarget)
+  if (idMatch) {
+    idMatch.scrollIntoView({ behavior: "smooth", block: "start" })
+    return `Navigated to ${idMatch.id}.`
   }
 
   // Fuzzy match by section title
