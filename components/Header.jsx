@@ -45,9 +45,8 @@ export default function Header({ activeSection }) {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative px-3 py-2 transition-colors ${
-                  activeSection === item.id ? "text-blue-400" : "text-gray-300 hover:text-white"
-                }`}
+                className={`relative px-3 py-2 transition-colors ${activeSection === item.id ? "text-blue-400" : "text-gray-300 hover:text-white"
+                  }`}
               >
                 {item.label}
                 {activeSection === item.id && (
@@ -75,9 +74,8 @@ export default function Header({ activeSection }) {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-3 py-2 transition-colors ${
-                  activeSection === item.id ? "text-blue-400" : "text-gray-300 hover:text-white"
-                }`}
+                className={`block w-full text-left px-3 py-2 transition-colors ${activeSection === item.id ? "text-blue-400" : "text-gray-300 hover:text-white"
+                  }`}
               >
                 {item.label}
               </button>

@@ -12,7 +12,7 @@ const projects = [
     image: "/ElevateAI.png",
     github: "https://github.com/Vihan2754/Elevate-AI",
     live: "https://elevate-ai-etjv.vercel.app/",
-    tech: [" React","Tailwind CSS","Next.js", "Neondb", "Shadcn UI", "Prisma", "Gemini API"],
+    tech: [" React", "Tailwind CSS", "Next.js", "Neondb", "Shadcn UI", "Prisma", "Gemini API"],
   },
   {
     title: " Virtual AI Assistant",
@@ -48,7 +48,7 @@ const projects = [
     image: "/Skysense.png",
     github: "https://github.com/Vihan2754/SkySense",
     live: "https://sky-sense-lyart.vercel.app/",
-    tech: ["Html", "CSS", "Javascript","React","Material UI"],
+    tech: ["Html", "CSS", "Javascript", "React", "Material UI"],
   },
 ]
 

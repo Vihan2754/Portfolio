@@ -1,27 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowDown, Github, Linkedin, Mail, FileText, Sparkles } from "lucide-react"
 import Image from "next/image"
-import { useEffect, useState } from "react"
 
 export default function Hero() {
-  const [particles, setParticles] = useState([])
-
-  useEffect(() => {
-    // Generate particles only after component mounts on client side
-    if (typeof window !== 'undefined') {
-      const newParticles = [...Array(50)].map((_, i) => ({
-        id: i,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        endY: window.innerHeight + 100,
-        duration: Math.random() * 3 + 2,
-      }))
-      setParticles(newParticles)
-    }
-  }, [])
-
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about")
     if (aboutSection) {
@@ -29,146 +12,184 @@ export default function Hero() {
     }
   }
 
-  const resumeLink = "https://drive.google.com/file/d/1TPCR46Txi4fMBrWde9H7K_EPgyPnb7P4/view?usp=drive_link"
+  const resumeLink = "https://drive.google.com/file/d/1lSV4pcU2xgjY5e2sol7uZFD9h-z8FgDq/view?usp=sharing"
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Animation */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20" />
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
-            initial={{
-              x: particle.x,
-              y: particle.y,
-            }}
-            animate={{
-              y: [null, -100, particle.endY],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        ))}
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-950 pt-20 pb-16">
+      {/* Refined Ambient Glows (Obsidian, Slate & Cyan/Sapphire) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px]" />
+        <div className="absolute top-1/3 -right-20 w-[450px] h-[450px] bg-cyan-600/10 rounded-full blur-[140px]" />
+        <div className="absolute -bottom-20 left-1/3 w-[600px] h-[400px] bg-indigo-600/10 rounded-full blur-[160px]" />
+        {/* Subtle grid texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-25" />
       </div>
 
-      <div className="container mx-auto px-[10%] z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
+      <div className="container mx-auto px-[6%] lg:px-[8%] z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+          
+          {/* Left Text Column */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="lg:w-3/5 mx-auto text-center flex flex-col items-center"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:w-7/12 text-center flex flex-col items-center"
           >
+            {/* Status Pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900/90 text-slate-300 border border-slate-800 shadow-sm backdrop-blur-md mb-6"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="text-slate-300 font-medium">Available for Opportunities</span>
+            </motion.div>
+
+            {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold mb-4"
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-3"
             >
               Hi, I'm{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">
                 Vinay Chauhan
               </span>
             </motion.h1>
 
+            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-300 mb-6"
+              transition={{ delay: 0.35, duration: 0.6 }}
+              className="text-xl sm:text-2xl font-semibold text-slate-300 mb-4 flex items-center justify-center gap-2"
             >
               Full Stack Developer
             </motion.p>
 
+            {/* Description - Option 1 */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="text-gray-400 mb-8 max-w-xl mx-auto text-center"
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="text-slate-400 text-base sm:text-lg mb-8 max-w-xl text-center leading-relaxed"
             >
-              Aspiring Software Engineer & Web Developer | Skilled in building responsive, modern applications .
+              Aspiring Software Engineer & Full Stack Developer specializing in the MERN stack, Next.js, and Cloud architectures. Experienced in engineering scalable web apps, RESTful APIs, and modern responsive UIs.
             </motion.p>
 
+            {/* Action Button: View Resume */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 mb-8 justify-center"
+              transition={{ delay: 0.65, duration: 0.6 }}
+              className="flex justify-center w-full mb-8"
             >
               <a
                 href={resumeLink}
-                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 rounded-full font-semibold transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-cyan-500/30 hover:scale-105"
               >
+                <FileText size={18} className="group-hover:rotate-6 transition-transform" />
                 <span>View Resume</span>
               </a>
             </motion.div>
 
+            {/* Social Icons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="flex justify-center space-x-6"
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="flex items-center justify-center space-x-4 w-full"
             >
               <a
                 href="https://github.com/Vihan2754"
-                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Profile"
+                className="p-2.5 rounded-full bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 hover:bg-slate-800 transition-all transform hover:scale-110 shadow-sm"
               >
-                <Github size={24} />
+                <Github size={20} />
               </a>
               <a
                 href="https://www.linkedin.com/in/vinay-chauhan-a16a4719b/"
-                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
+                className="p-2.5 rounded-full bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-blue-500/40 hover:bg-slate-800 transition-all transform hover:scale-110 shadow-sm"
               >
-                <Linkedin size={24} />
+                <Linkedin size={20} />
               </a>
               <a
                 href="mailto:vinaychauhansdn@gmail.com"
-                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110"
+                aria-label="Send Email"
+                className="p-2.5 rounded-full bg-slate-900/90 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-slate-800 transition-all transform hover:scale-110 shadow-sm"
               >
-                <Mail size={24} />
+                <Mail size={20} />
               </a>
             </motion.div>
           </motion.div>
 
-          {/* Profile Picture Section */}
+          {/* Right Column: Profile Picture with Halo Frame */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-2/5 mt-12 lg:mt-0 flex justify-center"
+            initial={{ opacity: 0, scale: 0.9, x: 40 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
+            className="lg:w-5/12 flex justify-center relative"
           >
-            <div className="relative">
+            {/* Ambient Backlight */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[320px] sm:w-[400px] h-[320px] sm:h-[400px] bg-gradient-to-tr from-blue-500/20 via-cyan-500/20 to-indigo-500/10 rounded-full blur-3xl opacity-80" />
+            </div>
+
+            {/* Glassmorphic Frame */}
+            <div className="relative group p-2 rounded-full bg-gradient-to-b from-slate-700/60 via-slate-800/40 to-slate-900/80 border border-slate-700/50 shadow-2xl backdrop-blur-sm">
+              
+              {/* Inner Circle Image Container */}
+              <div className="relative rounded-full overflow-hidden w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[360px] lg:h-[360px] border-2 border-slate-600/40 shadow-inner">
+                <Image
+                  src="/profile-photo.jpg"
+                  alt="Vinay Chauhan - Full Stack Developer"
+                  fill
+                  priority
+                  unoptimized
+                  sizes="(max-width: 640px) 260px, (max-width: 1024px) 320px, 360px"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Floating Mini Badge */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 rounded-full border-2 border-dashed border-blue-400/30"
-              />
-              <Image
-                src="/profile-pic.png"
-                alt="Profile Picture"
-                width={400}
-                height={400}
-                className="rounded-full border-4 border-gray-700 shadow-2xl object-cover"
-              />
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+                className="absolute -bottom-2 -left-2 sm:bottom-2 sm:-left-4 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 shadow-xl backdrop-blur-md flex items-center gap-2 text-xs font-semibold text-white"
+              >
+                <Sparkles size={14} className="text-cyan-400" />
+                <span>Full Stack Dev</span>
+              </motion.div>
             </div>
           </motion.div>
+
         </div>
       </div>
 
+      {/* Scroll Down Indicator */}
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 1.1 }}
         onClick={scrollToAbout}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-white transition-colors"
+        aria-label="Scroll to About section"
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-slate-400 hover:text-white transition-colors cursor-pointer"
       >
-        <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-          <ArrowDown size={24} />
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+          <ArrowDown size={22} />
         </motion.div>
       </motion.button>
     </section>

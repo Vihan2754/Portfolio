@@ -69,18 +69,18 @@ function collectPageContext() {
   const projectsSection = document.getElementById("projects")
   const projects = projectsSection
     ? Array.from(projectsSection.querySelectorAll('[data-ai="project-card"]')).map((card) => {
-        const index = card.getAttribute("data-ai-index")
-        const titleEl = card.querySelector('[data-ai="project-title"]') || card.querySelector("h3")
-        const descEl = card.querySelector("p")
-        return {
-          index,
-          title: snippet(titleEl?.innerText || "", 120),
-          description: snippet(descEl?.innerText || "", 220),
-          cardSelector: index != null ? `[data-ai="project-card"][data-ai-index="${index}"]` : null,
-          liveSelector: index != null ? `[data-ai="project-live"][data-ai-index="${index}"]` : null,
-          githubSelector: index != null ? `[data-ai="project-github"][data-ai-index="${index}"]` : null,
-        }
-      })
+      const index = card.getAttribute("data-ai-index")
+      const titleEl = card.querySelector('[data-ai="project-title"]') || card.querySelector("h3")
+      const descEl = card.querySelector("p")
+      return {
+        index,
+        title: snippet(titleEl?.innerText || "", 120),
+        description: snippet(descEl?.innerText || "", 220),
+        cardSelector: index != null ? `[data-ai="project-card"][data-ai-index="${index}"]` : null,
+        liveSelector: index != null ? `[data-ai="project-live"][data-ai-index="${index}"]` : null,
+        githubSelector: index != null ? `[data-ai="project-github"][data-ai-index="${index}"]` : null,
+      }
+    })
     : []
 
   const forms = Array.from(document.querySelectorAll("form"))
@@ -419,69 +419,69 @@ export default function Chatbot() {
           />
 
           <div className="fixed bottom-24 right-6 z-50 flex h-[480px] max-h-[calc(100vh-140px)] w-[86vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-700 bg-gray-900/80 text-white shadow-2xl backdrop-blur">
-          <div className="flex items-center justify-between border-b border-gray-700 px-4 py-3">
-            <div>
-              <p className="font-semibold leading-5">Portfolio Assistant</p>
-              <p className="text-xs text-gray-400">Ask about projects, skills, experience</p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="rounded-md p-2 hover:bg-gray-800"
-              aria-label="Close"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-
-          <div ref={listRef} className="ai-chat-scroll flex-1 overflow-y-auto px-4 py-3">
-            <div className="space-y-3">
-              {messages.map((m, idx) => (
-                <div
-                  key={m.id || idx}
-                  className={
-                    m.role === "user"
-                      ? "ml-auto w-fit max-w-[85%] rounded-2xl bg-blue-600 px-3 py-2 text-sm"
-                      : "mr-auto w-fit max-w-[85%] rounded-2xl bg-gray-800 px-3 py-2 text-sm"
-                  }
-                >
-                  {m.content}
-                </div>
-              ))}
-              {busy && (
-                <div className="mr-auto w-fit max-w-[85%] rounded-2xl bg-gray-800 px-3 py-2 text-sm text-gray-300">
-                  Thinking…
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="border-t border-gray-700 p-3">
-            <div className="flex items-center gap-2">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") sendMessage()
-                }}
-                disabled={busy}
-                placeholder="Type a message…"
-                className="w-full rounded-xl border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-60"
-              />
+            <div className="flex items-center justify-between border-b border-gray-700 px-4 py-3">
+              <div>
+                <p className="font-semibold leading-5">Portfolio Assistant</p>
+                <p className="text-xs text-gray-400">Ask about projects, skills, experience</p>
+              </div>
               <button
                 type="button"
-                onClick={sendMessage}
-                disabled={busy || !input.trim()}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50"
-                aria-label="Send"
+                onClick={() => setOpen(false)}
+                className="rounded-md p-2 hover:bg-gray-800"
+                aria-label="Close"
               >
-                <Send className="h-4 w-4" />
+                <X className="h-5 w-5" />
               </button>
             </div>
-          </div>
+
+            <div ref={listRef} className="ai-chat-scroll flex-1 overflow-y-auto px-4 py-3">
+              <div className="space-y-3">
+                {messages.map((m, idx) => (
+                  <div
+                    key={m.id || idx}
+                    className={
+                      m.role === "user"
+                        ? "ml-auto w-fit max-w-[85%] rounded-2xl bg-blue-600 px-3 py-2 text-sm"
+                        : "mr-auto w-fit max-w-[85%] rounded-2xl bg-gray-800 px-3 py-2 text-sm"
+                    }
+                  >
+                    {m.content}
+                  </div>
+                ))}
+                {busy && (
+                  <div className="mr-auto w-fit max-w-[85%] rounded-2xl bg-gray-800 px-3 py-2 text-sm text-gray-300">
+                    Thinking…
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="border-t border-gray-700 p-3">
+              <div className="flex items-center gap-2">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") sendMessage()
+                  }}
+                  disabled={busy}
+                  placeholder="Type a message…"
+                  className="w-full rounded-xl border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-60"
+                />
+                <button
+                  type="button"
+                  onClick={sendMessage}
+                  disabled={busy || !input.trim()}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50"
+                  aria-label="Send"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </>
-        )}
+      )}
     </>
   )
 }
